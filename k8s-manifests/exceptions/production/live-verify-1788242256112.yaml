@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: pac-kyverno-dashboard
+    pac.kyverno.io/request-id: live-verify-1788242256112
+  name: pac-exception-live-verify-1788242256112
+  namespace: production
+spec:
+  exceptions:
+    - policyName: disallow-latest-tag
+      ruleNames:
+        - require-image-tag
+        - autogen-require-image-tag
+  match:
+    any:
+      - resources:
+          kinds:
+            - Deployment
+          names:
+            - governance-sample-app
+          namespaces:
+            - production
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - governance-sample-app-*
+          namespaces:
+            - production
