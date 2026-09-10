@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: pac-kyverno-dashboard
+    pac.kyverno.io/request-id: 01a089d4-5a7c-738b-8329-20170357af29
+  name: pac-exception-01a089d4-5a7c-738b-8329-20170357af29
+  namespace: governance-testbed
+spec:
+  exceptions:
+    - policyName: disallow-latest-tag
+      ruleNames:
+        - disallow-latest-tag
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - gitops-live-test-pod
+          namespaces:
+            - governance-testbed
