@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: pac-kyverno-dashboard
+    pac.kyverno.io/request-id: 01a08a21-af55-735a-8af8-862c9e087dbf
+  name: pac-exception-01a08a21-af55-735a-8af8-862c9e087dbf
+  namespace: default
+spec:
+  exceptions:
+    - policyName: require-resource-limits
+      ruleNames:
+        - validate-resource-requests-limits
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - good-pod
+          namespaces:
+            - default
